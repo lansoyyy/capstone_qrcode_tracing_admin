@@ -26,6 +26,7 @@ Future addLivestock(
     'breed': breed,
     'origin': origin,
     'destination': destination,
+    'id': docUser.id,
   };
 
   await docUser.set(json);
