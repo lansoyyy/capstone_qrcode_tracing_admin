@@ -174,12 +174,12 @@ class _LogInPageState extends State<LogInPage> {
                     enabledBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(width: 1, color: Colors.black),
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(width: 1, color: Colors.black),
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                     labelText: 'Password',
                     labelStyle: const TextStyle(
