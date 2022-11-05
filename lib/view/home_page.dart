@@ -42,6 +42,8 @@ class _HomePageState extends State<HomePage> {
 
   var hasLoaded = false;
 
+  var stopOff = '';
+
   Future<void> uploadPicture(String inputSource) async {
     final picker = ImagePicker();
     XFile pickedImage;
@@ -213,18 +215,97 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: ((context, index) {
                         return Column(
                           children: [
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              decoration: const BoxDecoration(
-                                  color: Colors.teal,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5),
-                                      topRight: Radius.circular(5))),
-                              height: 100,
-                              width: 150,
-                              child: Image.network(
-                                data.docs[index]['livestockPicture'],
-                                fit: BoxFit.cover,
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return Container(
+                                        color: Colors.grey[200],
+                                        child: AlertDialog(
+                                          title: TextWidget(
+                                              text: 'Add stop-off location',
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.normal),
+                                          content: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 0, 0, 0),
+                                            child: TextFormField(
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: 'Quicksand'),
+                                              onChanged: (_input) {
+                                                stopOff = _input;
+                                              },
+                                              decoration: InputDecoration(
+                                                suffixIcon: const Icon(
+                                                    Icons.location_on_rounded),
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      width: 1,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: const BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                labelText: 'Stop-off Location',
+                                                labelStyle: const TextStyle(
+                                                  fontFamily: 'Quicksand',
+                                                  color: Colors.black,
+                                                  fontSize: 12.0,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          actions: [
+                                            FlatButton(
+                                              onPressed: () {
+                                                FirebaseFirestore.instance
+                                                    .collection('Livestock')
+                                                    .doc(data.docs[index].id)
+                                                    .update({
+                                                  'stopPlace': stopOff,
+                                                });
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text(
+                                                'Continue',
+                                                style: TextStyle(
+                                                    fontFamily: 'QRegular',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                decoration: const BoxDecoration(
+                                    color: Colors.teal,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(5),
+                                        topRight: Radius.circular(5))),
+                                height: 100,
+                                width: 150,
+                                child: Image.network(
+                                  data.docs[index]['livestockPicture'],
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             Container(
@@ -495,7 +576,8 @@ class _HomePageState extends State<HomePage> {
                                               weight,
                                               breed,
                                               origin,
-                                              destination);
+                                              destination,
+                                              '');
                                           box.write('type', type);
                                           box.write('breed', breed);
                                           box.write('destination', destination);

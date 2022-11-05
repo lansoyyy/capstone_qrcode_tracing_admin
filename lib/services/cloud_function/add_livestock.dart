@@ -10,10 +10,9 @@ Future addLivestock(
     String weight,
     String breed,
     String origin,
-    String destination) async {
-  final docUser = FirebaseFirestore.instance
-      .collection('Livestock')
-      .doc(name + contactNumber + type + breed + destination);
+    String destination,
+    String stopPlace) async {
+  final docUser = FirebaseFirestore.instance.collection('Livestock').doc();
 
   final json = {
     'name': name,
@@ -27,6 +26,7 @@ Future addLivestock(
     'origin': origin,
     'destination': destination,
     'id': docUser.id,
+    'stopPlace': stopPlace,
   };
 
   await docUser.set(json);
