@@ -188,6 +188,7 @@ class _HomePageState extends State<HomePage> {
             StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('Livestock')
+                    .where('username', isEqualTo: box.read('username'))
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
