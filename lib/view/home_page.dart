@@ -270,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                           actions: [
-                                            FlatButton(
+                                            MaterialButton(
                                               onPressed: () {
                                                 FirebaseFirestore.instance
                                                     .collection('Livestock')
@@ -564,7 +564,7 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(fontFamily: 'QRegular'),
                                     ),
                                     actions: <Widget>[
-                                      FlatButton(
+                                      MaterialButton(
                                         onPressed: () {
                                           addLivestock(
                                               box.read('name'),

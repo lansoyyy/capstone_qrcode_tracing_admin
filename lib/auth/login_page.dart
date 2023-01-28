@@ -214,7 +214,7 @@ class _LogInPageState extends State<LogInPage> {
                                   style: TextStyle(fontFamily: 'QRegular'),
                                 ),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  MaterialButton(
                                     onPressed: () =>
                                         Navigator.of(context).pop(true),
                                     child: const Text(
@@ -507,7 +507,7 @@ class _LogInPageState extends State<LogInPage> {
                                                                 'QRegular'),
                                                       ),
                                                       actions: <Widget>[
-                                                        FlatButton(
+                                                        MaterialButton(
                                                           onPressed: () {
                                                             box.write(
                                                                 'name', name);
